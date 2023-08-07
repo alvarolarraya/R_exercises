@@ -1,0 +1,3 @@
+```{r}
+options(tinytex.verbose = TRUE)
+```

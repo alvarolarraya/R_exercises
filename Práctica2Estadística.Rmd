@@ -1,0 +1,102 @@
+---
+output:
+  word_document: default
+  html_document: default
+---
+# Práctica 2
+## Álvaro Larraya
+
+3.1)
+
+```{r}
+set.seed(227)
+x<-1:6
+px.truc<-c(rep(3/12,3),rep(1/12,3))
+muestra<-sample(x,20,replace=TRUE,prob=px.truc)
+muestra2<-sample(x,200,replace=TRUE,prob=px.truc)
+muestra3<-sample(x,2000,replace=TRUE,prob=px.truc)
+muestra4<-sample(x,200000,replace=TRUE,prob=px.truc)
+```
+
+a) Calcula empíricamente la función de probabilidad
+
+```{r}
+round(table(muestra)/20,3)
+round(table(muestra2)/200,3)
+round(table(muestra3)/2000,3)
+round(table(muestra4)/200000,3)
+```
+
+
+b) Dibuja los diagramas de barras con los datos simiulados
+
+```{r}
+barplot(table(muestra),main="20 lanzamientos")
+barplot(table(muestra2),main="200 lanzamientos")
+barplot(table(muestra3),main="2000 lanzamientos")
+barplot(table(muestra4),main="200000 lanzamientos")
+```
+
+c) ¿Cómo cambia la pdf (función de probabilidad) y el gráfico de
+barras cuando n crece?
+
+Se reduce el factor suerte y, conforme crece la n, el número de veces que ocurre cada suceso se va asemejando más a su probabilidad.
+
+3.2)
+
+a) ¿Cuál es la probabilidad de que un día determinado no se
+puedan atender todos los servicios requeridos?
+
+```{r}
+1-pnorm(300,250,50)
+```
+
+b)¿Qué probabilidad hay de que en el mes de Abril haya al
+menos un día en el que no se puedan atender todos los servicios
+requeridos?
+
+```{r}
+dbinom(1, 1,(1-pnorm(300,250,50))*(30/365))
+```
+
+3.3)
+
+a) Calcula la probabilidad de que la resistencia a la rotura de un
+remache metálico seleccionado al azar se encuentre entre 710 y
+717 kg/cm2
+
+```{r}
+pnorm(717,700,35)-pnorm(710,700,35)
+```
+
+b) El remache no cumple con las especificaciones de calidad si
+rompe por debajo de los 650 kg/cm2.Calcula la probabilidad
+de que un remache no cumpla las especificaciones de calidad.
+
+```{r}
+pnorm(650,700,35)
+```
+
+c) Una empresa que recibe un lote de remaches, decide rechazarlo
+si, al coger 10 remaches al azar, alguno de ellos rompe por
+debajo de los 650 kg/cm2
+. Calcula la probabilidad de que
+rechace el lote.
+
+```{r}
+dbinom(1,100,dnorm(650,700,35))
+```
+
+d) ¿Que valor de ruptura debería garantizar el fabricante para
+asegurarse que el 99% de los remaches que fabrica se ajusten a
+ese criterio de calidad?
+
+```{r}
+qnorm(1-pbinom(1,100,pnorm(650,700,35)),700,35)
+```
+
+3.4)
+
+```{r}
+dbinom(3,20,0.05)/(dpois(3,0.95)+dpois(3,0.85))
+```

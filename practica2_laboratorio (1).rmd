@@ -1,0 +1,102 @@
+```{r}
+set.seed(235)
+x<-1:6
+px<-rep(1/6,6)
+muestra<-sample(x,100,replace=TRUE,prob=px)
+muestra
+which(muestra==2)
+table(muestra)
+round(table(muestra)/100,3)
+media.empirica<-mean(muestra)
+media.teorica<-sum(x*px)
+c(media.empirica, media.teorica)
+barplot(table(muestra),main="100 lanzamientos")
+set.seed(235)
+x<-1:6
+px.truc<-c(rep(2/8,2),rep(1/8,4))
+muestra2<-sample(x,100,replace=TRUE,prob=px.truc)
+which(muestra2==2)
+par(mfrow=c(1,2))
+x<-0:10
+px<-dbinom(x,10,0.3)
+plot(x,px,type = "h",xlab = "x", ylab = "P(X = x)", main = "PDF of X-Bin(10, 0.3)")
+px<-dbinom(x,10,0.7)
+plot(x,px,type = "h",xlab = "x", ylab = "P(X = x)", main = "PDF of X-Bin(10, 0.7)")
+par(mfrow=c(1,1))
+ #############################################
+#################################################################################################
+## plot.discreteCDF es una funci?n que nos permite realizar las gráficas de funciones
+## de distribución (cdf) para variables aleatorias discretas
+## x: vector con los valores que toma la varialbe aleatoria X
+## Fx: vector con las probabilidades acumuladas para los valores que hay en x (P(X <= x))
+plot.discreteCDF <- function(x,Fx){
+  # número de valores de x
+  n <- length(x)
+  # margen para la que representación del gráfico se vea mejor (espacio que dejamos antes 
+  # del primer y despues del ultimo valor de x) 
+  margen <- mean(x[2:n]- x[1:n-1])
+  
+  # Dibujamos un gráfico en blanco incluyendo solo los limites
+  plot(x,Fx,type="n",xlab="x",ylab="F(x)",xlim=c(x[1]-margen,x[n]+margen),ylim=c(0,1))  
+  
+  # Dibujamos los segmentos horizontales sobre el grafico anterior
+  segments(x[1]-margen,0,x[1],0)
+  segments(x[1:n-1],Fx[1:n-1],x[2:n],Fx[1:n-1])
+  segments(x[n],1,x[n]+margen,1)
+  
+  # Dibujamos los puntos para indicar el segmento donde esta incluido cada valor de x
+  lines(x,Fx,type="p",pch=16)
+  
+  # Le ponemos título al gr?fico
+  title("CDF")
+}
+#################################################################################################
+######################################## 
+plot.discreteCDF
+par(mfrow=c(1,2),pty="s")
+x<-0:10
+px<-dbinom(x,10,0.3)
+Fx<-cumsum(px)
+plot.discreteCDF(x,Fx)
+px<-dbinom(x,10,0.7)
+Fx<-cumsum(px)
+plot.discreteCDF(x,Fx)
+par(mfrow=c(1,1))
+
+
+x<-seq(-4,4,0.01)
+y<-dnorm(x,0,1)
+plot(x,y,type = "l",xlim = c(-4,4), main="pdf N(0,1)")
+
+dbinom(14,18,0.6)
+
+1-pbinom(14,18,0.6)
+
+1-pbinom(13,18,0.6)
+
+dpois(4,6)
+
+1-ppois(4,6)
+
+a<-qpois(0.95,6)
+a
+
+pexp(1,3/4)
+
+
+pexp(1.25,3/4)-pexp(0.5,3/4)
+
+qexp(0.97,3/4)
+
+qexp(0.1,3/4)
+
+pnorm(8,7,2)
+
+pnorm(5,7,2)-pnorm(3,7,2)
+
+b<-qnorm(0.05,7,2)
+a<-7-b
+a
+
+
+```

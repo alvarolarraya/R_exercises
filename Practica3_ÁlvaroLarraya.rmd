@@ -1,0 +1,225 @@
+---
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+# Práctica 3
+## Álvaro Larraya
+
+### 2.1) Sea X una v.a chi-cuadrado con 8 grados de libertad
+
+Representa gráficamente la función de densidad de X
+```{r}
+x<-seq(0,30,0.01)
+plot(x,dchisq(x,8),type="l",ylab="f(x)",main="Chisq with 8 d.f.")
+```
+
+Calcula P(X < 3) 
+```{r}
+pchisq(3,8)
+```
+
+P(3 ≤ X ≤ 5)
+```{r}
+pchisq(5,8)-pchisq(3,8)
+```
+
+Calcula a tal que P(X ≤ a) = 0.95
+```{r}
+qchisq(0.95,8)
+```
+
+Calcula la mediana
+```{r}
+qchisq(0.5,8)
+```
+
+### 2.2) Sea X una v.a. t10
+
+Representa gráficamente la función de densidad de X
+```{r}
+x<-seq(-4,4,0.01)
+plot(x,dt(x,10),type="l",ylab="f(x)",main="student t with 10 d.f.")
+```
+
+Calcula P(X < 2) 
+```{r}
+pt(2, 10)
+```
+
+P(−0.5 ≤ X ≤ 0.5)
+```{r}
+pt(0.5, 10)-pt(-0.5, 10)
+```
+
+Calcula a tal que P(−1 − a ≤ X ≤ 1 + a) = 0.80
+```{r}
+qt(0.8,10)
+```
+
+### 2.3) Sea X una v.a. F 2,5
+
+Representa gráficamente la función de densidad de X
+```{r}
+x<-seq(0,10,0.01)
+plot(x,df(x,2,5),type="l",main="F with 2 and 5 d.f.")
+```
+
+Calcula P(X > 2)
+```{r}
+1-pf(2,2,5)
+```
+
+P(1 ≤ X ≤ 5)
+```{r}
+pf(5,2,5)-pf(1,2,5)
+```
+
+Calcula el 90 percentil
+```{r}
+qf(0.9,2,5)
+```
+
+### 2.4) Simula m = 20000 muestra de tamaño n = 2 de una distribución
+Exp(λ = 4). Para cada muestra, calcula la suma de cada muestra. Fija la semilla aleatoria a 235
+```{r}
+set.seed(235)
+m<-20000
+n<-2
+sum.exp <- numeric(m)
+for(i in 1:m){
+samp <- rexp(n,4)
+sum.exp[i] <- sum(samp)
+}
+```
+
+Representa el histograma de frecuencias relativas
+```{r}
+hist(sum.exp,prob=TRUE, main="Suma de muestras")
+x <- seq(0,10,0.01)
+y <- dexp(x,4)
+lines(x,y)
+```
+
+Añade la función de densidad de una Γ(α = 2, λ = 4)
+```{r}
+x<-seq(0,30,0.01)
+plot(x,dgamma(x,2,4),type="l",ylab="f(x)",main="Γ(α = 2, λ = 4)")
+```
+
+Y una N(2/4,√2/4)
+```{r}
+x<-seq(-3,4,0.01)
+plot(x,dnorm(x,2/4,sqrt(2/4)),type="l",ylab="f(x)",main="N(2/4,√2/4)")
+```
+
+¿Que función de densidad se ajusta mejor al histográma, la gamma
+o la normal?
+
+La función gamma se ajusta mejor, ya que en la normal se representan x con valores negativos los cuales no tienen mucho sentido en este contexto, ya que no podemos hablar de la muestra i-ésima negativa. Las muestras, luego las x solo toman valores naturales.
+
+2.5) Repite el experimento con muestras de tamaño n=10, 20, y 100. Fija la semilla aleatoria a 235.
+
+#### n=10
+```{r}
+set.seed(235)
+m<-20000
+n<10
+sum.exp <- numeric(m)
+for(i in 1:m){
+samp <- rexp(n,4)
+sum.exp[i] <- sum(samp)
+}
+hist(sum.exp,prob=TRUE, main="Suma de muestras")
+x <- seq(0,10,0.01)
+y <- dexp(x,4)
+lines(x,y)
+```
+
+Añade la función de densidad de una Γ(α = 10, λ = 4)
+```{r}
+x<-seq(0,10,0.01)
+plot(x,dgamma(x,10,4),type="l",ylab="f(x)",main="Γ(α = 10, λ = 4)")
+```
+
+Y una N(10/4,√10/4)
+```{r}
+x<-seq(-3,8,0.01)
+plot(x,dnorm(x,10/4,sqrt(10/4)),type="l",ylab="f(x)",main="N(10/4,√10/4)")
+```
+
+#### n=20
+```{r}
+set.seed(235)
+m<-20000
+n<20
+sum.exp <- numeric(m)
+for(i in 1:m){
+samp <- rexp(n,4)
+sum.exp[i] <- sum(samp)
+}
+hist(sum.exp,prob=TRUE, main="Suma de muestras")
+x <- seq(0,10,0.01)
+y <- dexp(x,4)
+lines(x,y)
+```
+
+Añade la función de densidad de una Γ(α = 20, λ = 4)
+```{r}
+x<-seq(0,10,0.01)
+plot(x,dgamma(x,20,4),type="l",ylab="f(x)",main="Γ(α = 20, λ = 4)")
+```
+
+Y una N(20/4,√20/4)
+```{r}
+x<-seq(0,10,0.01)
+plot(x,dnorm(x,20/4,sqrt(20/4)),type="l",ylab="f(x)",main="N(20/4,√20/4)")
+```
+
+#### n=10
+```{r}
+set.seed(235)
+m<-20000
+n<100
+sum.exp <- numeric(m)
+for(i in 1:m){
+samp <- rexp(n,4)
+sum.exp[i] <- sum(samp)
+}
+hist(sum.exp,prob=TRUE, main="Suma de muestras")
+x <- seq(0,10,0.01)
+y <- dexp(x,4)
+lines(x,y)
+```
+
+Añade la función de densidad de una Γ(α = 20, λ = 4)
+```{r}
+x<-seq(15,35,0.01)
+plot(x,dgamma(x,100,4),type="l",ylab="f(x)",main="Γ(α = 100, λ = 4)")
+```
+
+Y una N(20/4,√20/4)
+```{r}
+x<-seq(10,40,0.01)
+plot(x,dnorm(x,100/4,sqrt(100/4)),type="l",ylab="f(x)",main="N(100/4,√100/4)")
+```
+
+¿Qué observas?
+
+Podemos ver que la varianza de la normal y la gamma aumentan y desplazan las x con mayor probabilidad hacia la derecha en la gráfica (los valores de x con mayor probabilidad toman mayores valores) cada vez que se aumenta el tamaño de las muestras. Mientras que la gráfica de la suma de las muestras se mantiene constante al variar el tamaño de estas (las muestras).
+
+### 2.6) Verifica empíricamente la afirmación propuesta
+Sabiendo que Z = N(0,1). Represento la formula de F
+```{r}
+x<-seq(-100,40,0.01)
+plot(x,((dnorm(x,0,1)^2)/(dchisq(x,20)/20)),type="l",ylab="f(x)",main="F")
+```
+
+Comparo con la gráfica de la aproximación F 1,20
+```{r}
+x<-seq(-100,40,0.01)
+plot(x,df(x,1,20),type="l",ylab="f(x)",main="F 1,20")
+```
+
+Comprobamos así que efectivamente se da esa equivalencia (aproximadamente), para valores positivos de F

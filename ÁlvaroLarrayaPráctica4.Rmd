@@ -1,0 +1,117 @@
+---
+output:
+  word_document: default
+  html_document: default
+---
+# PRÁCTICA 4
+
+### Álvaro Larraya
+
+## Ejercicio 1
+
+## a)
+```{r}
+library(PASWR2)
+str(STATTEMPS)
+men<-STATTEMPS$temperature[STATTEMPS$gender=="Male"]
+women<-STATTEMPS$temperature[STATTEMPS$gender=="Female"]
+par(mfrow=c(1,2),pty="s")
+qqnorm(men, main="men")
+qqline(men)
+qqnorm(women, main="women")
+qqline(women)
+```
+```
+
+Podemos ver que se asemejan más o menos a la distribución de una normal teórica, siendo los puntos los cuantiles de la muestra y la línea la distribución normal con la que la estamos comparando. Al haber similitudes notables, las aproximaremos a una normal.
+
+Como no sabemos si las varianzas son iguales o distintas, realizamos el cociente de varianzas
+```{r}
+var.test(x=men, y=women, conf.level = 0.95)$conf
+```
+
+Luego el cociente de varianzas está entre 0.4041425 y 3.6985107 con una confianza del 95%, al estar el uno incluido en el intervalo, podemos suponer que las varianzas son iguales
+
+```{r}
+t.test(x=men, y=women, var.equal=TRUE, conf.level = 0.95)$conf
+```
+
+La difirencia de medias entre hombres y mujeres en la temperatura corporal está entre -1.6025708 y 0.9970372 con una confianza del 95%, al estar incluido el cero, concluimos que no hay una diferencia de temperatura entre generos.
+
+## b)
+
+```{r}
+library(PASWR2)
+str(STATTEMPS)
+eight<-STATTEMPS$temperature[STATTEMPS$class=="8 a.m."]
+nine<-STATTEMPS$temperature[STATTEMPS$class=="9 a.m."]
+par(mfrow=c(1,2),pty="s")
+qqnorm(eight, main="eight")
+qqline(eight)
+qqnorm(nine, main="nine")
+qqline(nine)
+
+```
+
+Podemos aproximar también las temeperaturas medidas a distintas horas a una normal por la misma razón que en el apartado anterior
+
+```{r}
+
+```
+
+Como no sabemos si las varianzas son iguales o distintas, realizamos el cociente de varianzas
+
+```{r}
+var.test(x=eight, y=nine, conf.level = 0.95)$conf
+```
+
+Luego el cociente de varianzas está entre 0.7188687 y 5.4814489 con una confianza del 95%, al estar el uno incluido en el intervalo, podemos suponer que las varianzas son iguales
+
+```{r}
+t.test(x=eight, y=nine, var.equal=TRUE, conf.level = 0.95)$conf
+```
+
+La diferencia de medias entre la temperaturas tomadas a las 8 am y a las 9 am está entre -2.4917186 y -0.2612226, al no estar incluido el cero concluimos con una confianza del 95% que la hora a la que se mide la temperatura es un parametro con cierta importancia
+
+## Ejercicio 2
+
+```{r}
+library(PASWR2)
+str(TOE)
+```
+Como desconocemos la varianza de cantidad de TOE^2 de los doce países
+
+```{r}
+t.test(TOE , conf.level = 0.95)$conf
+```
+
+La media  de cantidad de produccion de energía nuclear está entre 3756.425 y 12788.075 TOE con una confianza del 95%
+
+## Ejercicio 3
+
+## a)
+
+```{r}
+library(PASWR2)
+str(FORMULA1)
+team1<-FORMULA1$team1
+team2<-FORMULA1$team2
+```
+
+Realizamos el cociente de varianzas
+
+```{r}
+var.test(x=team1, y=team2, conf.level = 0.95)$conf
+```
+
+El cociente de varianzas está entre 0.1099935 y 1.7828442 con una confianza del 95%, al estar incluido el 1 asumimos que las varianzas son iguales
+
+## b)
+
+Calculamos la diferencia de medias entre los dos equipos en segundos
+
+```{r}
+t.test(x=team1, y=team2, var.equal=TRUE, conf.level = 0.95)$conf
+```
+
+La diferencia de medias poblacionales está entre -0.2420843 y 0.4636843 segundos con una confianza del 95%

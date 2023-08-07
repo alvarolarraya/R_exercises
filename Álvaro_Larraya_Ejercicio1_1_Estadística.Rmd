@@ -1,0 +1,74 @@
+---
+output:
+  html_document: default
+  word_document: default
+---
+```{r}
+# Ejercicio 1.1
+## Álvaro Larraya
+### 10/02/20
+```
+
+a) Crea las variables community y wheat.surface usando los datos de la
+tabla Trigo. Guarda las variables en un data.frame llamado wheatspain.
+
+```{r}
+community<-c("Galicia","Asturias","Cantabria","País Vasco","Navarra","La Rioja","Aragón","Cataluña","Islas Baleares","Castilla y León","Madrid","Castilla-La Mancha","C. Valenciana","Región de Murcia","Extremadura","Andalucía","Islas Canarias")
+wheat.surface<-c(18817,65,440,25143,66326,34214,311479,74206,7203,619858,13118,263424,6111,9500,143250,558292,100)
+wheatspain<-data.frame(community,wheat.surface)
+```
+
+b) Calcula el máximo, mínimo y el rango para la variable wheat.surface.
+
+```{r}
+min(wheatspain$wheat.surface)
+max(wheatspain$wheat.surface)
+range(wheatspain$wheat.surface)
+```
+
+c) ¿Qué comunidad tiene la mayor superficie de trigo cultivada?
+
+```{r}
+community[which(wheat.surface==max(wheatspain$wheat.surface))]
+```
+
+d) Ordena las comunidades autónomas por superficie cultivada en orden
+creciente.
+
+```{r}
+community[order(wheatspain$wheat.surface,decreasing=FALSE)]
+```
+
+e) Ordena las comunidades autónomas por superficie cultivada en orden
+decreciente.
+
+```{r}
+community[order(wheatspain$wheat.surface,decreasing=TRUE)]
+```
+
+f) Crea un nuevo fichero wheat.c donde Asturias haya sido borrada.
+
+```{r}
+wheat.c<-wheatspain[-(which(community=="Asturias")),]
+```
+
+g)  Crea en wheat.c una nueva variable llamada acre indicando la superficie
+de trigo cultivada en acres (1 acre = 0.40468564224 hectáreas).
+
+```{r}
+wheat.c$acre<-(wheat.c$wheat.surface/0.40468564224)
+```
+
+h) ¿Cuál es la superficie total de cultivo de trigo en hectáreas en España
+en 2004?
+
+```{r}
+sum(wheat.surface)
+```
+
+i) Crea un histograma de la superficie de cultivo de trigo en España en
+2004.
+
+```{r}
+hist(wheatspain$wheat.surface,col="red")
+```
